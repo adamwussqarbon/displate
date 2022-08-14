@@ -4,17 +4,26 @@ import { useEffect, useState } from 'react';
 
 import { Spinner } from '../Spinner/Spinner';
 import './CustomModal.style.css'
+import {ErrorAlert} from "../ErrorAlert/ErrorAlert";
 
 export function CustomModal({ showModal, closeModal, breed }) {
   const [img, setImg] = useState('');
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false)
 
   const fetchImg = async () => {
-    setLoading(true);
-    const response = await fetch(`https://dog.ceo/api/breed/${breed}/images/random`);
-    const { message } = await response.json();
-    setImg(message);
-    setLoading(false);
+    try {
+      setError(null)
+      setLoading(true);
+      const response = await fetch(`https://dog.ceo/api/breed/${breed}/images/random`);
+      const { message } = await response.json();
+      setImg(message);
+      setLoading(false);
+    }
+    catch (e) {
+      setError(e)
+      setLoading(false);
+    }
   }
 
   useEffect( () => {
@@ -34,7 +43,7 @@ export function CustomModal({ showModal, closeModal, breed }) {
             loading ?
               <Spinner />
               :
-              <img src={img} alt="dog" className="w-100 h-100" />
+              error ? <ErrorAlert error="We cant load the image" /> : <img src={img} alt="dog" className="w-100 h-100" />
           }
         </div>
       </Modal.Body>
