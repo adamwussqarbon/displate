@@ -1,10 +1,24 @@
 import { useEffect, useState } from "react";
 
-import './Home.style.css'
 import { Button } from '../../components/Button/Button';
+import { CustomModal } from '../../components/Modal/CustomModal'
 
 export function Home() {
   const [message, setMessage] = useState([]);
+  const [breed, setBreed] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => {
+    setShowModal(true);
+  }
+  const closeModal = () => {
+    setShowModal(false);
+  }
+
+  const chooseBreed = (breed) => {
+    setBreed(breed);
+    openModal();
+  }
 
   useEffect( () => {
     (async () => {
@@ -15,15 +29,28 @@ export function Home() {
   }, []);
 
   return (
-    <div className="home container">
+    <>
+      <div className="container px-3 py-3 justify-content-center">
+        {
+          message.map((breed) => (
+            <Button
+              key={breed}
+              content={breed}
+              handleClick={chooseBreed}
+            >
+              {breed}
+            </Button>
+          ))
+        }
+      </div>
       {
-        message.map((dog) => (
-          <Button
-            key={dog}
-            content={dog}
-          />
-        ))
+        showModal &&
+        <CustomModal
+          closeModal={closeModal}
+          showModal={showModal}
+          breed={breed}
+        />
       }
-    </div>
+    </>
   );
 }
