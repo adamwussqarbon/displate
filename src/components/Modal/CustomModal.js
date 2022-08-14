@@ -3,8 +3,8 @@ import Modal from 'react-bootstrap/Modal';
 import { useEffect, useState } from 'react';
 
 import { Spinner } from '../Spinner/Spinner';
+import { ErrorAlert } from "../ErrorAlert/ErrorAlert";
 import './CustomModal.style.css'
-import {ErrorAlert} from "../ErrorAlert/ErrorAlert";
 
 export function CustomModal({ showModal, closeModal, breed }) {
   const [img, setImg] = useState('');

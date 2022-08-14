@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Button } from '../../components/Button/Button';
 import { CustomModal } from '../../components/Modal/CustomModal'
-import {ErrorAlert} from "../../components/ErrorAlert/ErrorAlert";
+import { ErrorAlert } from "../../components/ErrorAlert/ErrorAlert";
 
 export function Home() {
   const [message, setMessage] = useState([]);
