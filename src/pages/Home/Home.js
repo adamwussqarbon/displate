@@ -15,13 +15,15 @@ export function Home() {
   }, []);
 
   return (
-    <div className="home">
-      { message.map((dog) => (
-        <Button
-          key={dog}
-          content={dog}
-        />
-      )) }
+    <div className="home container">
+      {
+        message.map((dog) => (
+          <Button
+            key={dog}
+            content={dog}
+          />
+        ))
+      }
     </div>
   );
 }
