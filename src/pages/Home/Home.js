@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Button } from '../../components/Button/Button';
 import { CustomModal } from '../../components/Modal/CustomModal'
-import { ErrorAlert } from "../../components/ErrorAlert/ErrorAlert";
+import { ErrorAlert } from '../../components/ErrorAlert/ErrorAlert';
 
 export function Home() {
   const [message, setMessage] = useState([]);
@@ -13,6 +13,7 @@ export function Home() {
   const openModal = () => {
     setShowModal(true);
   }
+
   const closeModal = () => {
     setShowModal(false);
   }
@@ -22,25 +23,28 @@ export function Home() {
     openModal();
   }
 
+  const fetchBreeds = async () => {
+    try {
+      setError(null);
+      const response = await fetch('https://dog.ceo/api/breeds/list/all');
+      const { message } = await response.json();
+      setMessage(Object.keys(message));
+    }
+    catch (e) {
+      setError(e);
+    }
+  }
+
   useEffect( () => {
-    (async () => {
-      try {
-        setError(null)
-        const response = await fetch('https://dog.ceo/api/breeds/list/all');
-        const { message } = await response.json();
-        setMessage(Object.keys(message));
-      }
-      catch (e) {
-        setError(e)
-      }
-    })();
+    fetchBreeds();
   }, []);
 
   return (
     <>
       <div className="container px-3 py-3 justify-content-center">
         {
-          error ?
+          error
+            ?
             <ErrorAlert error="We cant load breeds" />
             :
             message.map((breed) => (

@@ -3,17 +3,17 @@ import Modal from 'react-bootstrap/Modal';
 import { useEffect, useState } from 'react';
 
 import { Spinner } from '../Spinner/Spinner';
-import { ErrorAlert } from "../ErrorAlert/ErrorAlert";
-import './CustomModal.style.css'
+import { ErrorAlert } from '../ErrorAlert/ErrorAlert';
+import './CustomModal.style.css';
 
 export function CustomModal({ showModal, closeModal, breed }) {
   const [img, setImg] = useState('');
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const fetchImg = async () => {
     try {
-      setError(null)
+      setError(null);
       setLoading(true);
       const response = await fetch(`https://dog.ceo/api/breed/${breed}/images/random`);
       const { message } = await response.json();
@@ -21,7 +21,7 @@ export function CustomModal({ showModal, closeModal, breed }) {
       setLoading(false);
     }
     catch (e) {
-      setError(e)
+      setError(e);
       setLoading(false);
     }
   }
