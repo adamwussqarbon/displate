@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Spinner } from '../Spinner/Spinner';
 import { ErrorAlert } from '../ErrorAlert/ErrorAlert';
@@ -10,6 +10,8 @@ export function CustomModal({ showModal, closeModal, breed }) {
   const [img, setImg] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const shouldGetImg = useRef(true);
 
   const fetchImg = async () => {
     try {
@@ -27,7 +29,10 @@ export function CustomModal({ showModal, closeModal, breed }) {
   }
 
   useEffect( () => {
-    fetchImg();
+    if (shouldGetImg.current) {
+      shouldGetImg.current = false;
+      fetchImg();
+    }
   }, []);
 
   return (
