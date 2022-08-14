@@ -1,9 +1,13 @@
 import './Button.style.css'
 
-export function Button({ content }) {
+export function Button({ children, handleClick }) {
+
   return (
-    <button className="button btn btn-primary">
-      {content}
+    <button
+      className="button btn btn-primary"
+      onClick={() => handleClick(children)}
+    >
+      {children}
     </button>
   )
 }
