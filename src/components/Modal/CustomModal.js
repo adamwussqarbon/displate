@@ -57,7 +57,7 @@ export function CustomModal({ showModal, closeModal, breed }) {
           Close
         </Button>
         <Button variant="primary" onClick={fetchImg}>
-          Next photo
+          Next random photo
         </Button>
       </Modal.Footer>
     </Modal>
